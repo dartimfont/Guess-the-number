@@ -19,6 +19,12 @@ const HARD_DIFFICULT int = 3
 const HOT int = 5
 const WARM int = 15
 
+type Record struct {
+	Date    string `json:"date"`
+	Result  string `json:"result"`
+	Attemps int    `json:"attemps"`
+}
+
 func printDifficultyMenu() {
 	fmt.Println("Выберите сложность игры:")
 	fmt.Printf("%v. Лёгкая\n", EASY_DIFFICULT)
@@ -70,7 +76,7 @@ func startGame(maxNum, maxAttemps int) {
 	fmt.Printf("Угадай число за %v попыток!\n", maxAttemps)
 
 	for i := 0; i < maxAttemps; i++ {
-		fmt.Printf("Попытка %v\n", i+1)
+		fmt.Printf("\x1b[33mПопытка %v\n\x1b[0m", i+1) // orange
 
 		printLastNums(lastInputs)
 
@@ -99,12 +105,6 @@ func startGame(maxNum, maxAttemps int) {
 		fmt.Println("Секретное число было: ", randomInt)
 		saveToFile(isFound, maxAttemps)
 	}
-}
-
-type Record struct {
-	Date    string `json:"date"`
-	Result  string `json:"result"`
-	Attemps int    `json:"attemps"`
 }
 
 func saveToFile(isFound bool, attemps int) {
